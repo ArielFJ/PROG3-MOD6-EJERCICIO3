@@ -16,23 +16,23 @@ class App extends React.Component {
     }
   }
 
-  // componentDidMount(){
-  //   let proveedores = [
-  //     new Proveedor(1, 'Ramón', 'Las Américas', '8098988989'),
-  //     new Proveedor(2, 'Alan', 'Boca Chica', '5813592741'),
-  //     new Proveedor(3, 'Pedro', 'La Caleta', '2584493258'),
-  //   ];
-  //   let productos = [
-  //     new Producto(1, 'Salami', 'Salchichón de carne', '27-9-2018', proveedores[0]),
-  //     new Producto(2, 'Queso', 'Queso de leche', '27-9-2018', proveedores[1]),
-  //     new Producto(3, 'Piña', 'Piña de Mao', '27-9-2018', proveedores[2]),
-  //   ];
+  componentDidMount(){
+    let proveedores = [
+      new Proveedor(1, 'Ramón', 'Las Américas', '8098988989'),
+      new Proveedor(2, 'Alan', 'Boca Chica', '5813592741'),
+      new Proveedor(3, 'Pedro', 'La Caleta', '2584493258'),
+    ];
+    let productos = [
+      new Producto(1, 'Salami', 'Salchichón de carne', '27-9-2018', proveedores[0]),
+      new Producto(2, 'Queso', 'Queso de leche', '27-9-2018', proveedores[1]),
+      new Producto(3, 'Piña', 'Piña de Mao', '27-9-2018', proveedores[2]),
+    ];
 
-  //   this.setState({
-  //     productos,
-  //     proveedores
-  //   })
-  // }
+    this.setState({
+      productos,
+      proveedores
+    })
+  }
 
   render() {
     return (
