@@ -3,6 +3,8 @@ import {Route , Link} from 'react-router-dom';
 
 import ListaProducto from './ListaProducto';
 import ListaProveedor from './ListaProveedor';
+import FormProveedor from './FormProveedor';
+import FormProducto from './FormProducto';
 
 export class MenuNav extends Component {
     render() {
@@ -13,6 +15,8 @@ export class MenuNav extends Component {
 
                 <Route exact path="/Productos" render={() => {return <ListaProducto productos={this.props.productos} />}} />
                 <Route exact path="/Proveedores" render={() => {return <ListaProveedor proveedores={this.props.proveedores} />}} />
+                <Route exact path="/Agregar/Proveedor" component={FormProveedor} />
+                <Route exact path="/Agregar/Producto" component={FormProducto} />
             </div>
         )
     }
