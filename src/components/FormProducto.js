@@ -63,7 +63,13 @@ export class FormProducto extends Component {
                         <div className="form-group">
                             <div className="col-md-12">
                                 <label className="control-label">Proveedor</label>
-                                <input name="descripcion" type="text" className="form-control" onChange={this.onChange} required />
+                                <select name="descripcion" type="text" className="form-control" onChange={this.onChange} required >
+                                    {
+                                        this.props.proveedores.map(prov => {
+                                        return <option key={prov.id} >{prov.nombre}</option>
+                                        })
+                                    }
+                                </select>
                                 {/* Hacer select para seleccionar proveedor */}
                             </div>
                         </div>

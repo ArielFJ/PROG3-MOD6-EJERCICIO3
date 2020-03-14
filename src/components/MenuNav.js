@@ -16,7 +16,7 @@ export class MenuNav extends Component {
                 <Route exact path="/Productos" render={() => {return <ListaProducto productos={this.props.productos} />}} />
                 <Route exact path="/Proveedores" render={() => {return <ListaProveedor proveedores={this.props.proveedores} />}} />
                 <Route exact path="/Agregar/Proveedor" component={FormProveedor} />
-                <Route exact path="/Agregar/Producto" component={FormProducto} />
+                <Route exact path="/Agregar/Producto" render={() => { return <FormProducto proveedores={this.props.proveedores} />}}  />
             </div>
         )
     }
