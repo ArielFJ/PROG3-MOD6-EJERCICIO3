@@ -39,6 +39,12 @@ export class MenuNav extends Component {
                                             postLS={this.props.postLS} 
                                             getLS={this.props.getLS} 
                                             obtenerValorPorId={this.props.obtenerValorPorId} />}} />
+                <Route exact path={`/Actualizar/Producto/:prodId`} 
+                                        render={(props) => { return <FormProducto {...props}
+                                            proveedores={this.props.proveedores} 
+                                            postLS={this.props.postLS} 
+                                            getLS={this.props.getLS} 
+                                            obtenerValorPorId={this.props.obtenerValorPorId} />}} />
             </div>
         )
     }

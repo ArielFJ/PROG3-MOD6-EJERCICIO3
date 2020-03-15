@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import FormProveedor from './FormProveedor';
 
 export class ListaProveedor extends Component {
 
@@ -68,12 +67,6 @@ export class ListaProveedor extends Component {
                                     <td>{prov.telefono}</td>
                                     <td><button className="btn btn-danger" onClick={() => this.handleEliminar(prov.id)} >Eliminar</button></td>
                                     <td><Link to={`/Actualizar/Proveedor/${prov.id}`} className="btn btn-warning"  >Actualizar</Link></td>
-                                    <Route exact path={`/Actualizar/Proveedor/:provId`} 
-                                        render={() => { return <FormProveedor 
-                                            proveedor={prov}
-                                            postLS={this.props.postLS} 
-                                            getLS={this.props.getLS} 
-                                            obtenerNuevoId={this.props.obtenerNuevoId} />}} />
                                 </tr>
                             })
                         }

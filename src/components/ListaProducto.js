@@ -60,7 +60,7 @@ export class ListaProducto extends Component {
                                     <td>{prod.vencimiento}</td>
                                     <td>{prod.proveedor.nombre}</td>
                                     <td><button className="btn btn-danger" onClick={() => this.handleEliminar(prod.id)} >Eliminar</button></td>
-                                    <td><button className="btn btn-warning" onClick={() => alert('actualizando...')} >Actualizar</button></td>
+                                    <td><Link to={`/Actualizar/Producto/${prod.id}`} className="btn btn-warning"  >Actualizar</Link></td>
                                 </tr>
                             })
                         }

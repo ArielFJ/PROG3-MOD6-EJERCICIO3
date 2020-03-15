@@ -43,9 +43,8 @@ class App extends React.Component {
   }
 
   obtenerValorPorId(key, id){
-    const proveedores = this.getLS(key);
-    console.log('ValorID', proveedores);
-    for(let valor of proveedores){
+    const valores = this.getLS(key);
+    for(let valor of valores){
         if(valor.id === id){
             return valor;
         }

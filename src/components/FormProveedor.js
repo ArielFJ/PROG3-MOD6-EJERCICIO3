@@ -41,7 +41,6 @@ export class FormProveedor extends Component {
         e.preventDefault();
         const proveedoresActuales = this.props.getLS('proveedores');
         const {nombre, direccion, telefono} = this.state;
-        console.log(nombre, direccion, telefono);
         if(!this.state.actualizando){
             const id = this.props.obtenerNuevoId(proveedoresActuales);
             const proveedor = new Proveedor(id, nombre, direccion, telefono);
@@ -76,7 +75,7 @@ export class FormProveedor extends Component {
                                     name="nombre" 
                                     type="text" 
                                     className="form-control" 
-                                    value={this.props.proveedor !== null ? this.state.nombre : ''} 
+                                    value={this.state.nombre } 
                                     onChange={this.onChange} required />
                             </div>
                         </div>
@@ -88,7 +87,7 @@ export class FormProveedor extends Component {
                                     name="direccion" 
                                     type="text" 
                                     className="form-control" 
-                                    value={this.props.proveedor !== null ? this.state.direccion : ''}
+                                    value={this.state.direccion }
                                     onChange={this.onChange} required />
                             </div>
                         </div>
@@ -101,7 +100,7 @@ export class FormProveedor extends Component {
                                     type="tel" 
                                     pattern="[0-9]{10}" 
                                     className="form-control" 
-                                    value={this.props.proveedor !== null ? this.state.telefono : ''}
+                                    value={this.state.telefono}
                                     onChange={this.onChange} required/>
                                 <small className="text-info">Debe introducir 10 dígitos</small>
                             </div>

@@ -11,19 +11,34 @@ export class FormProducto extends Component {
             descripcion: '',
             vencimiento: '',
             proveedor: null,
+            actualizando: false
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    componentDidMount(){
+        if(this.props.match !== null && this.props.match !== undefined){
+            const producto = this.props.obtenerValorPorId('productos', Number(this.props.match.params.prodId));
+            if(producto !== null){
+                this.setState({
+                    nombre: producto.nombre,
+                    descripcion: producto.descripcion,
+                    vencimiento: producto.vencimiento,
+                    proveedor: producto.proveedor,
+                    actualizando: true
+                });
+            }
+        }
+        
+    }
+
     onChange(e){
-        console.log(e.target.name, e.target.value);
         if(e.target.name !== 'proveedor'){
             this.setState({
                 [e.target.name]: e.target.value
             })
         }else {
-            console.log(this.props.obtenerValorPorId('proveedores', Number(e.target.value)))
             this.setState({
                 [e.target.name]: this.props.obtenerValorPorId('proveedores', Number(e.target.value))
             })
@@ -33,23 +48,26 @@ export class FormProducto extends Component {
     onSubmit(e) {
         e.preventDefault();
         const {nombre, descripcion, vencimiento, proveedor} = this.state;
+        console.log(this.state)
         const productosActuales = this.props.getLS('productos');
-        const id = this.props.obtenerNuevoId(productosActuales);
-        const producto = new Producto(id, nombre, descripcion, vencimiento, proveedor);
-        this.props.postLS('productos', producto);
+        if(!this.state.actualizando){
+            const id = this.props.obtenerNuevoId(productosActuales);
+            const producto = new Producto(id, nombre, descripcion, vencimiento, proveedor);
+            this.props.postLS('productos', producto);
+        }
+        else{
+            for(let item of productosActuales){
+                if(item.id === Number(this.props.match.params.prodId)){
+                    item.nombre = this.state.nombre;
+                    item.descripcion = this.state.descripcion;
+                    item.vencimiento = this.state.vencimiento;
+                    item.proveedor = this.state.proveedor;
+                }              
+            }
+            localStorage.setItem('productos', JSON.stringify(productosActuales));       
+        }
         window.location = '/Productos';
     }
-
-    // obtenerProveedorPorId(id){
-    //     const proveedores = this.props.getLS('proveedores');
-    //     for(let prov of proveedores){
-    //         if(prov.id === id){
-    //             console.log(prov);
-    //             return prov;
-    //         }
-    //     }
-    //     return null;
-    //  }
 
     render() {
         return (
@@ -68,8 +86,9 @@ export class FormProducto extends Component {
                                     name="nombre"
                                     type="text" 
                                     className="form-control" 
+                                    value={this.state.nombre}
                                     onChange={this.onChange} 
-                                    value={this.props.nombre} required />
+                                    required />
                             </div>
                         </div>
 
@@ -80,8 +99,9 @@ export class FormProducto extends Component {
                                     name="descripcion" 
                                     type="text" 
                                     className="form-control" 
+                                    value={this.state.descripcion }
                                     onChange={this.onChange} 
-                                    value={this.props.descripcion} required />
+                                    required />
                             </div>
                         </div>
 
@@ -92,8 +112,9 @@ export class FormProducto extends Component {
                                     name="vencimiento"
                                     type="date" 
                                     className="form-control" 
+                                    value={this.state.vencimiento }
                                     onChange={this.onChange} 
-                                    value={this.props.vencimiento} required/>
+                                    required/>
                             </div>
                         </div>
                     
@@ -106,10 +127,15 @@ export class FormProducto extends Component {
                                     className="form-control" 
                                     onChange={this.onChange}
                                     required >
-                                        <option value='' disabled hidden selected>Elija proveedor...</option>
+                                        {this.state.proveedor === null && <option value='' disabled selected hidden>Elija proveedor...</option>}
                                     {
                                         this.props.proveedores.map(prov => {
-                                        return <option value={prov.id} key={prov.id} >{prov.nombre}</option>
+                                            if(this.state.proveedor !== null){
+                                                if(this.state.proveedor.id === prov.id){
+                                                return <option value={prov.id} key={prov.id} selected >{prov.nombre}</option>
+                                                }
+                                            }
+                                            return <option value={prov.id} key={prov.id} >{prov.nombre}</option>
                                         })
                                     }
                                 </select>
