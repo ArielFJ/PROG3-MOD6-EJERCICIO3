@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom';
 
 export class ListaProducto extends Component {
     
-    state = {
-        productos: []
+    constructor(){
+        super();
+        this.state = {
+            productos: []
+        }
+        this.handleEliminar = this.handleEliminar.bind(this);
     }
 
     componentDidMount(){
@@ -15,6 +19,20 @@ export class ListaProducto extends Component {
         this.setState({
             productos
         })
+    }
+
+    handleEliminar(id){
+        const productos = this.state.productos;
+        for(let i = 0; i < productos.length; i++){
+            if(productos[i].id === id){
+                productos.splice(i, 1);
+            }
+        }
+        this.setState({
+            productos
+        })
+        window.location = '/Productos';
+        localStorage.setItem('productos', JSON.stringify(productos));
     }
 
     render() {
@@ -41,7 +59,7 @@ export class ListaProducto extends Component {
                                     <td>{prod.descripcion}</td>
                                     <td>{prod.vencimiento}</td>
                                     <td>{prod.proveedor.nombre}</td>
-                                    <td><button className="btn btn-danger" onClick={() => alert('eliminando...')} >Eliminar</button></td>
+                                    <td><button className="btn btn-danger" onClick={() => this.handleEliminar(prod.id)} >Eliminar</button></td>
                                     <td><button className="btn btn-warning" onClick={() => alert('actualizando...')} >Actualizar</button></td>
                                 </tr>
                             })
