@@ -18,6 +18,7 @@ export class FormProducto extends Component {
     }
 
     onChange(e){
+        console.log(e.target.name, e.target.value);
         if(e.target.name !== 'proveedor'){
             this.setState({
                 [e.target.name]: e.target.value
@@ -35,8 +36,6 @@ export class FormProducto extends Component {
         const productosActuales = this.props.getLS('productos');
         const id = this.props.obtenerNuevoId(productosActuales);
         const producto = new Producto(id, nombre, descripcion, vencimiento, proveedor);
-        console.log(producto);
-        // push local storage
         this.props.postLS('productos', producto);
         window.location = '/Productos';
     }
@@ -45,6 +44,7 @@ export class FormProducto extends Component {
         const proveedores = this.props.getLS('proveedores');
         for(let prov of proveedores){
             if(prov.id === id){
+                console.log(prov);
                 return prov;
             }
         }
@@ -104,8 +104,9 @@ export class FormProducto extends Component {
                                     name="proveedor" 
                                     type="text" 
                                     className="form-control" 
-                                    onChange={this.onChange} 
+                                    onChange={this.onChange}
                                     required >
+                                        <option value='' disabled hidden selected>Elija proveedor...</option>
                                     {
                                         this.props.proveedores.map(prov => {
                                         return <option value={prov.id} key={prov.id} >{prov.nombre}</option>
