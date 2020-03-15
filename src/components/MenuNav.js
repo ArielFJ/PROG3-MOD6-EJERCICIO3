@@ -32,7 +32,13 @@ export class MenuNav extends Component {
                                             proveedores={this.props.proveedores} 
                                             postLS={this.props.postLS} 
                                             getLS={this.props.getLS} 
-                                            obtenerNuevoId={this.props.obtenerNuevoId} />}}  />
+                                            obtenerNuevoId={this.props.obtenerNuevoId}
+                                            obtenerValorPorId={this.props.obtenerValorPorId} />}}  />
+                <Route exact path={`/Actualizar/Proveedor/:provId`} 
+                                        render={(props) => { return <FormProveedor {...props}
+                                            postLS={this.props.postLS} 
+                                            getLS={this.props.getLS} 
+                                            obtenerValorPorId={this.props.obtenerValorPorId} />}} />
             </div>
         )
     }

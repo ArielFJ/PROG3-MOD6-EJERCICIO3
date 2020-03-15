@@ -17,6 +17,7 @@ class App extends React.Component {
     this.getLS = this.getLS.bind(this);
     this.postLS = this.postLS.bind(this);
     this.obtenerNuevoId = this.obtenerNuevoId.bind(this);
+    this.obtenerValorPorId = this.obtenerValorPorId.bind(this);
   }
 
   getLS(key){
@@ -40,6 +41,17 @@ class App extends React.Component {
     }
     return 0;
   }
+
+  obtenerValorPorId(key, id){
+    const proveedores = this.getLS(key);
+    console.log('ValorID', proveedores);
+    for(let valor of proveedores){
+        if(valor.id === id){
+            return valor;
+        }
+    }
+    return null;
+ }
 
   componentDidMount(){
     let proveedores = this.getLS('proveedores');
@@ -65,7 +77,8 @@ class App extends React.Component {
             proveedores={this.state.proveedores}
             postLS={this.postLS} 
             getLS={this.getLS}
-            obtenerNuevoId={this.obtenerNuevoId} />
+            obtenerNuevoId={this.obtenerNuevoId} 
+            obtenerValorPorId={this.obtenerValorPorId} />
           
           <Route exact path="/" render={() => {
             return <h3>Almacén de productos y proveedores</h3>

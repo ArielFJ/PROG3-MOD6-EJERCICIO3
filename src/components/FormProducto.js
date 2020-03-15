@@ -10,11 +10,10 @@ export class FormProducto extends Component {
             nombre: '',
             descripcion: '',
             vencimiento: '',
-            proveedor: null
+            proveedor: null,
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.obtenerProveedorPorId = this.obtenerProveedorPorId.bind(this); 
     }
 
     onChange(e){
@@ -24,8 +23,9 @@ export class FormProducto extends Component {
                 [e.target.name]: e.target.value
             })
         }else {
+            console.log(this.props.obtenerValorPorId('proveedores', Number(e.target.value)))
             this.setState({
-                [e.target.name]: this.obtenerProveedorPorId(Number(e.target.value))
+                [e.target.name]: this.props.obtenerValorPorId('proveedores', Number(e.target.value))
             })
         }
     }
@@ -40,16 +40,16 @@ export class FormProducto extends Component {
         window.location = '/Productos';
     }
 
-    obtenerProveedorPorId(id){
-        const proveedores = this.props.getLS('proveedores');
-        for(let prov of proveedores){
-            if(prov.id === id){
-                console.log(prov);
-                return prov;
-            }
-        }
-        return null;
-     }
+    // obtenerProveedorPorId(id){
+    //     const proveedores = this.props.getLS('proveedores');
+    //     for(let prov of proveedores){
+    //         if(prov.id === id){
+    //             console.log(prov);
+    //             return prov;
+    //         }
+    //     }
+    //     return null;
+    //  }
 
     render() {
         return (
