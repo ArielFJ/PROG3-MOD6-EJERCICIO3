@@ -3,10 +3,23 @@ import { Link } from 'react-router-dom';
 
 export class ListaProducto extends Component {
     
+    state = {
+        productos: []
+    }
+
+    componentDidMount(){
+        let productos = this.props.getLS('productos');
+
+        if(productos === null) productos = [];
+
+        this.setState({
+            productos
+        })
+    }
 
     render() {
 
-        if(this.props.productos.length > 0){
+        if(this.state.productos.length > 0){
             return <div>
                     <Link to="/Agregar/Producto" className="btn btn-primary mt-4">Agregar</Link>
                     <table className="table mt-4" >

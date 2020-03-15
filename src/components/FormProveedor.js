@@ -23,9 +23,11 @@ export class FormProveedor extends Component {
     onSubmit(e) {
         e.preventDefault();
         const {nombre, direccion, telefono} = this.state;
-        const proveedor = new Proveedor(1, nombre, direccion, telefono);
-        console.log(proveedor);
-        // push local storage
+        const proveedoresActuales = this.props.getLS('proveedores');
+        const id = this.props.obtenerNuevoId(proveedoresActuales);
+        const proveedor = new Proveedor(id, nombre, direccion, telefono);
+        this.props.postLS('proveedores', proveedor);
+        window.location = '/Proveedores';
     }
 
     render() {
@@ -62,7 +64,7 @@ export class FormProveedor extends Component {
                     
                         <div className="form-group">
                             <div className="col-md-5">
-                                <button type="submit" className="btn btn-success mt-4">Guardar</button>
+                                <input type="submit" className="btn btn-success mt-4" value="Guardar" />
                             </div>
                         </div>
                     </div>   

@@ -2,6 +2,20 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 export class ListaProveedor extends Component {
+
+    state = {
+        proveedores: []
+    }
+
+    componentDidMount(){
+        let proveedores = this.props.getLS('proveedores');
+
+        if(proveedores === null) proveedores = [];
+
+        this.setState({
+            proveedores
+        })
+    }
     
     render() {
 

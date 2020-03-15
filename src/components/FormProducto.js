@@ -14,26 +14,47 @@ export class FormProducto extends Component {
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.obtenerProveedorPorId = this.obtenerProveedorPorId.bind(this); 
     }
 
     onChange(e){
-        this.setState({
-            [e.target.name]: e.target.value
-        })
+        if(e.target.name !== 'proveedor'){
+            this.setState({
+                [e.target.name]: e.target.value
+            })
+        }else {
+            this.setState({
+                [e.target.name]: this.obtenerProveedorPorId(Number(e.target.value))
+            })
+        }
     }
 
     onSubmit(e) {
         e.preventDefault();
         const {nombre, descripcion, vencimiento, proveedor} = this.state;
-        const producto = new Producto(1, nombre, descripcion, vencimiento, proveedor);
+        const productosActuales = this.props.getLS('productos');
+        const id = this.props.obtenerNuevoId(productosActuales);
+        const producto = new Producto(id, nombre, descripcion, vencimiento, proveedor);
         console.log(producto);
         // push local storage
+        this.props.postLS('productos', producto);
+        window.location = '/Productos';
     }
+
+    obtenerProveedorPorId(id){
+        const proveedores = this.props.getLS('proveedores');
+        for(let prov of proveedores){
+            if(prov.id === id){
+                return prov;
+            }
+        }
+        return null;
+     }
 
     render() {
         return (
             <div className="text-center align-items-center">
-                <h1 className="display-4">Agregar Proveedor</h1>
+                <h1 className="display-4">Agregar Producto</h1>
 
                 <h3 className="text-info mt-4">Llene el formulario y pulse Guardar para agregar nuevo producto.</h3>
                 <br />
@@ -80,14 +101,14 @@ export class FormProducto extends Component {
                             <div className="col-md-12">
                                 <label className="control-label">Proveedor</label>
                                 <select 
-                                    name="descripcion" 
+                                    name="proveedor" 
                                     type="text" 
                                     className="form-control" 
                                     onChange={this.onChange} 
                                     required >
                                     {
                                         this.props.proveedores.map(prov => {
-                                        return <option key={prov.id} >{prov.nombre}</option>
+                                        return <option value={prov.id} key={prov.id} >{prov.nombre}</option>
                                         })
                                     }
                                 </select>
